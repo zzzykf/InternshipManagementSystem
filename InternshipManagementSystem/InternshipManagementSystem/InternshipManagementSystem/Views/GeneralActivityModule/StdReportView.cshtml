@@ -1,0 +1,44 @@
+﻿@model InternshipManagementSystem.Models.ReportModel
+
+<h2>Student Report</h2>
+
+<table class="table" style="font-weight:bold; text-align:center; font-size:larger;">
+    <tr style="font-weight:bold">
+        <td>Student Name</td>
+        <td>Evaluation Mark</td>
+        <td>Status</td>
+        <td>Faculty Supervisor</td>
+        <td>Industrial Supervisor</td>
+    </tr>
+    <tr>
+        <td>@Html.Raw(Model.Student_Name)</td>
+        <td>@Html.Raw(Model.Evaluation_Mark)</td>
+        @{
+            if (Model.Status == "Incompleted")
+            {
+                <td style="color:red">@Html.Raw(Model.Status)</td>
+            }
+            else
+            {
+                <td style="color:green">@Html.Raw(Model.Status)</td>
+            }
+        }
+        
+        <td>@Html.Raw(Model.Faculty_Supervisor_Name)</td>
+        <td>@Html.Raw(Model.Industrial_Supervisor_Name)</td>
+    </tr>
+</table>
+
+<div style="text-align:center;">
+    @{if (Model.Status == "Incompleted")
+        {
+        <button id="my-button" onclick="location.href='@Url.Action("ReleaseReportView", "GeneralActivityModule")'">Release Internship Report</button>
+
+        }
+        else
+        {
+        <button id="my-button" onclick="location.href='@Url.Action("ReleaseReportView", "GeneralActivityModule")'">View Internship Report </button>
+
+        }
+    }
+</div>

@@ -1,0 +1,13 @@
+﻿@model InternshipManagementSystem.Models.EvaluationModel
+<h2>Evaluation</h2>
+<div><label>Logbook Evaluation Result (100%):</label></div>
+<div>Marks from Industrial Supervisor: @Html.Raw(Model.ISupervisorLogbookMark.ToString("0.00") + "%")</div>
+<div>Marks from Faculty Supervisor: @Html.Raw(Model.FSupervisorLogbookMark.ToString("0.00") + "%")</div>
+
+<div style="margin-top:30px;"><label>Internship Evaluation Result (100%):</label></div>
+<div>Marks from Industrial Supervisor: @Html.Raw(Model.ISupervisorInternshipMark.ToString("0.00") + "%")</div>
+<div>Marks from Faculty Supervisor: @Html.Raw(Model.FSupervisorInternshipMark.ToString("0.00") + "%")</div>
+
+<div style="margin-top:30px;"><label>Presentation Evaluation Result (100%):</label></div>
+<div>Marks from Industrial Supervisor: @Html.Raw(Model.ISupervisorPresentationMark.ToString("0.00")+"%")</div>
+<div>Marks from Faculty Supervisor: @Html.Raw(Model.FSupervisorPresentationMark.ToString("0.00") + "%")</div>

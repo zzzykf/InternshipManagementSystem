@@ -1,0 +1,89 @@
+﻿@model List<InternshipManagementSystem.Models.UserModel>
+@Styles.Render("~/Content/viewlogbook.css")
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+<h2>Assign Faculty Supervisor</h2>
+<div style="width: 100%; text-align:center; display:inline-block;">
+    Keyword <input type="text" id="txtSearch" /><input type="button" id="btnSearch" value="Search" onclick="StartSearch();" />
+    @if (ViewBag.Found == false)
+    {
+        <div style="color:red;display:inline-block;">No Result!</div>
+    }
+</div>
+<br />
+<br />
+<script>
+    function StartSearch() {
+        var Text = document.getElementById('txtSearch').value;
+        window.location.href = '/FacultyCoordinatorModule/AssignSupervisorView/' + Text;
+    }
+</script>
+
+<table style="width:100%; border:2px solid black;">
+    <thead style="display:block;">
+        <tr>
+            <th style="width:1%;text-align:center;">No</th>
+            <th style="width:10%;text-align:center;">Matric ID</th>
+            <th style="width:10%;text-align:center;">Name</th>
+            <th style="width:10%;text-align:center;">Location</th>
+            <th style="width:10%;text-align:center;">Company Name</th>
+            <th style="width:10%;text-align:center;">Faculty Supervisor</th>
+            <th style="width:11%;text-align:center;">Industrial Supervisor</th>
+            <th style="width:10%;padding-left:60px;">Date</th>
+        </tr>
+    </thead>
+    <tbody style="display:block; height:300px;overflow-y:auto;overflow-x:hidden;width:100%; border-top:2px solid black;">
+        @if (ViewBag.Found == true)
+        {
+            foreach (var item in Model)
+            {
+
+                <tr>
+                    <td style="width:2%;text-align:center;">@Html.Raw(item.Id)</td>
+                    <td style="width:10%;text-align:center;">@Html.Raw(item.MatricID)</td>
+                    <td style="width:10%;text-align:center;">@Html.Raw(item.FullName)</td>
+                    <td style="width:10%;text-align:center;">@Html.Raw(item.State)</td>
+                    <td style="width:10%;text-align:center;">@Html.Raw(item.CompanyName)</td>
+                    @{
+                        if (item.FacultySupervisorName == "Null")
+                        {
+                            <td style="width:10%;text-align:center;">
+                                @Html.ActionLink("Assign", "AssignSupervisorFormView",
+"FacultyCoordinatorModule", new { item.FullName }, new { })
+                        </td>
+                        }
+                        else
+                        {
+                            <td style="width:10%;text-align:center;">@Html.Raw(item.FacultySupervisorName)</td>
+                        }
+                    }
+
+                    <td style="width:10%;text-align:center;">@Html.Raw(item.IndustrySupervisorName)</td>
+                    <td style="width:10%;text-align:center;">@Html.Raw(item.InternshipPeriodStart) - @Html.Raw(item.InternshipPeriodEnd)</td>
+                </tr>
+
+                            }
+                        }
+    </tbody>
+</table>
+<script>
+
+    var $table = $('table.scroll'),
+        $bodyCells = $table.find('tbody tr:first').children(),
+        colWidth;
+
+    // Adjust the width of thead cells when window resizes
+    $(window).resize(function () {
+        // Get the tbody columns width array
+        colWidth = $bodyCells.map(function () {
+            return $(this).width();
+        }).get();
+
+        // Set the width of thead columns
+        $table.find('thead tr').children().each(function (i, v) {
+            $(v).width(colWidth[i]);
+        });
+    }).resize();
+</script>  

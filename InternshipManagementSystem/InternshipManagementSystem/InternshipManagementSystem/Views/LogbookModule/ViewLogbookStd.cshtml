@@ -1,0 +1,27 @@
+﻿@model InternshipManagementSystem.Models.LogbookModel
+
+@{
+    ViewBag.Title = "ViewLogbookStd";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/viewlogbook.css")
+<h2>ViewLogbookStd</h2>
+<table>
+    <tr >
+        <th style="text-align:center;">Date</th>
+        <th style="text-align:center;">Description</th>
+        <th style="text-align:center;">Option</th>
+    </tr>
+    <tr>
+        <td>
+            @Model.Datetime.ToShortDateString()
+            (@Model.Datetime.DayOfWeek.ToString())
+        </td>
+        <td>
+            @Model.Description
+        </td>
+        <td style="text-align:center">
+            @Html.ActionLink("Edit","CreateNewLogbook","LogbookModule",new { Model.Id },new { })
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,76 @@
+﻿@model InternshipManagementSystem.Models.LogbookModel
+
+@{
+    ViewBag.Title = "CreateNewLogbook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CreateNewLogbook</h2>
+@{
+    var listItems = new List<SelectListItem>()
+                {
+                    new SelectListItem {Text = "Week 1", Value = "1"},
+                    new SelectListItem {Text = "Week 2", Value = "2"},
+                    new SelectListItem {Text = "Week 3", Value = "3"},
+                    new SelectListItem {Text = "Week 4", Value = "4"},
+                    new SelectListItem {Text = "Week 5", Value = "5"},
+                    new SelectListItem {Text = "Week 6", Value = "6"},
+                    new SelectListItem {Text = "Week 7", Value = "7"},
+                    new SelectListItem {Text = "Week 8", Value = "8"},
+                    new SelectListItem {Text = "Week 9", Value = "9"},
+                    new SelectListItem {Text = "Week 10", Value = "10"},
+                    new SelectListItem {Text = "Week 11", Value = "11"},
+                    new SelectListItem {Text = "Week 12", Value = "12"},
+                    new SelectListItem {Text = "Week 13", Value = "13"}
+                };
+}
+
+@using (Html.BeginForm("CreateNewLogbook", "LogbookModule", FormMethod.Post, new { }))
+{
+    <div class="container">
+        <div class="col-lg-12 well">
+            <div class="row">
+                <h3 style="margin-bottom:20px; text-align:center;"><b>Logbook Form</b></h3>
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Week :
+                        </div>
+                        <div class="col-sm-8 form-group">
+                            @Html.DropDownListFor(model => (model.Week), listItems, new { @class = "form-control", style = "display:inline-block;" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Date : 
+                        </div>
+                        <div class="col-sm-8 form-group">
+                            @Html.TextBoxFor(model => (model.Datetime), new { @class = "form-control", style = "display:inline-block;", @type = "date" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Title : 
+                        </div>
+                        <div class="col-sm-8 form-group">
+                            @Html.TextBoxFor(model => (model.Title), new { @class = "form-control", style = "display:inline-block;" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Description :
+                        </div>
+                        <div class="col-sm-8 form-group">
+                            @Html.TextAreaFor(model => (model.Description), 5, 60, new { style = "display: inline-block", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row" style="text-align:center;">
+                        @Html.HiddenFor(model => (model.Id))
+                        <button style="margin-top: 20px;" type="submit" class="btn btn-lg btn-info">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

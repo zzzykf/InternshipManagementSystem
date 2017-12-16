@@ -1,0 +1,57 @@
+﻿@model InternshipManagementSystem.Models.MyViewModel
+
+
+<h2>Private Message</h2>
+<h3>@ViewBag.TargetUser</h3>
+<table style="width:50%">
+
+    @foreach (var item in Model.PrivateMessageList)
+    {
+        <tr>
+            <td style="width:100%">
+                @{
+                    if (ViewBag.TargetUser == item.Sender)
+                    {
+                        <div>
+                            @Html.Label(Convert.ToString(item.Datetime))
+                        </div>
+                        <div>@Html.Raw(item.Message)</div>
+                        <p></p>
+                    }
+                    else
+                    {
+                        <div style="text-align: right; width:100%;">
+                            @Html.Label(Convert.ToString(item.Datetime))<span style="font-weight:bold;"> (You)</span>
+                        </div>
+                        <div style="text-align: right; width:100%;">@Html.Raw(item.Message)</div>
+                        <p></p>
+                    }
+                }
+               
+            </td>
+
+        </tr>
+        <tr>
+            <td><br /></td>
+        </tr>
+    }
+    <tr>
+        <td>
+            
+        </td>
+    </tr>
+</table>
+
+@using (Html.BeginForm("PrivateMessageView", "GeneralActivityModule", FormMethod.Post, new { }))
+{
+    <div>
+        @Html.TextAreaFor(m => m.PrivateMessage.Message, new { style = "width:500px; heigh:50px" })
+        @Html.HiddenFor(m => m.PrivateMessage.Receiver)
+        @Html.HiddenFor(m => m.PrivateMessage.Sender)
+    </div>
+
+    <div>
+        <button type="submit" id="my-button" onclick="location.href='@Url.Action("PrivateMessageView", "GeneralActivityModule")'">Reply Message</button>
+    </div>
+}
+

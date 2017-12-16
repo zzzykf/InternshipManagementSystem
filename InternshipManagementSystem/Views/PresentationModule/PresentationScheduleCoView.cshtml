@@ -1,0 +1,76 @@
+﻿@model List<InternshipManagementSystem.Models.UserModel>
+@Styles.Render("~/Content/viewlogbook.css")
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+<h2>Presentation Schedule</h2>
+
+<table style="width:100%; border:2px solid black;">
+    <thead style="display:block;">
+        <tr>
+            <th style="width:1%;text-align:center;">No</th>
+            <th style="width:10%;text-align:center;">Matric ID</th>
+            <th style="width:10%;text-align:center;">Name</th>
+            <th style="width:10%;text-align:center;">Presentation Date</th>
+            <th style="width:10%;text-align:center;">Presentation Venue</th>
+            <th style="width:10%;text-align:center;">Status</th>
+        </tr>
+    </thead>
+    <tbody style="display:block; height:300px;overflow-y:auto;overflow-x:hidden;width:100%; border-top:2px solid black;">
+        @for(int i = 0;i < Model.Count; i++)
+        {
+
+            <tr>
+                <td style="width:2%;text-align:center;">@(i+1)</td>
+                <td style="width:10%;text-align:center;">@Html.Raw(Model[i].MatricID)</td>
+                <td style="width:10%;text-align:center;">@Html.Raw(Model[i].FullName)</td>
+                @if (Model[i].Accepted == "Null")
+                {
+                    <td style="width:10%;text-align:center;">-</td>
+                    <td style="width:10%;text-align:center;">-</td>
+                    <td style="width:10%;text-align:center;">@Html.ActionLink("Set Schedule", "PresentationScheduleFormView", "PresentationModule", new { @id = Model[i].Id }
+                 , null)</td>
+
+                }
+                else
+                {
+                    <td style="width:10%;text-align:center;">@Html.Raw(Model[i].PresentationDate)</td>
+                    <td style="width:10%;text-align:center;">@Html.Raw(Model[i].PresentationVenue)</td>
+                    if (Model[i].Accepted == "Accepted")
+                    {
+                        <td style="width:10%;text-align:center;color:green"><label>@Html.Raw(Model[i].Accepted)</label></td>
+                    }
+                    else if (Model[i].Accepted == "Rejected")
+                    {
+                        <td style="width:10%;text-align:center;color:red"><label>@Html.Raw(Model[i].Accepted)</label>,&nbsp;@Html.ActionLink("Set Schedule", "PresentationScheduleFormView", "PresentationModule", new { @id = Model[i].Id }, null) </td>
+                    }
+                    else
+                    {
+                        <td style="width:10%;text-align:center;">@Html.Raw(Model[i].Accepted)</td>
+                    }
+                }
+            </tr>
+
+         }
+    </tbody>
+</table>
+<script>
+
+    var $table = $('table.scroll'),
+        $bodyCells = $table.find('tbody tr:first').children(),
+        colWidth;
+
+    // Adjust the width of thead cells when window resizes
+    $(window).resize(function () {
+        // Get the tbody columns width array
+        colWidth = $bodyCells.map(function () {
+            return $(this).width();
+        }).get();
+
+        // Set the width of thead columns
+        $table.find('thead tr').children().each(function (i, v) {
+            $(v).width(colWidth[i]);
+        });
+    }).resize();
+</script>  

@@ -1,0 +1,62 @@
+﻿@model List<InternshipManagementSystem.Models.FAQModel>
+
+@{
+    ViewBag.Title = "FAQs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Frequently Asked Questions</h2>
+
+<p>
+    @if (ViewBag.Role == "Faculty Coordinator")
+    {
+        @Html.ActionLink("Create New", "FAQFormView")
+    }
+</p>
+<div style="width: 100%; text-align:center; display:block; margin-bottom: 20px;">
+    Keyword <input type="text" id="txtSearch" /><input type="button" id="btnSearch" value="Search" onclick="StartSearch();" />
+</div>
+
+<script>
+    function StartSearch() {
+        var Text = document.getElementById('txtSearch').value;
+        window.location.href = '/GeneralActivityModule/FAQView/' + Text;
+    }
+</script>
+<div id="scrolldiv" style="width:100%; height:350px; overflow-x:hidden; overflow:auto;">
+    <table class="table">
+        @if (ViewBag.Found == true)
+        {
+            foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    <div style="display: inline-block; font-size:medium; text-decoration:solid;">
+                        <label>Q:   @Html.Raw(item.Question)</label>
+                    </div>
+                    <br />
+                    <div>A:   @Html.Raw(item.Answer)</div>
+                    <div style="float: right;">
+                        @if (ViewBag.Role == "Faculty Coordinator")
+                {
+                            @Html.ActionLink("Update", "FAQFormView", "GeneralActivityModule"
+                 , new { @id = item.Id }, new { })
+                            <div style="display:inline-block;"> | </div>
+                            @Html.ActionLink("Delete", "DeleteFAQ", "GeneralActivityModule"
+                 , new { @id = item.Id }, new { onclick = "return confirm ('Are you sure you wish to delete this FAQ?');" })
+                        }
+
+                    </div>
+                </td>
+            </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td>Not Found!</td>
+            </tr>
+        }
+
+    </table>
+</div>

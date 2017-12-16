@@ -1,0 +1,46 @@
+﻿@model InternshipManagementSystem.Models.FAQModel
+
+@{
+    ViewBag.Title = "FAQFormView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Action == "Edit")
+{
+    <h2>Edit FAQ</h2>
+}
+else
+{
+    <h2>Add New FAQ</h2>
+}
+<div class="container">
+    <div class="col-lg-12 well">
+        <div class="row">
+            @using (Html.BeginForm("FAQFormView", "GeneralActivityModule", FormMethod.Post, new { }))
+            {
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Question :
+                        </div>
+                        <div class="col-sm-8 form-group">
+                            @Html.TextAreaFor(model => (model.Question), 3, 60, null)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Answer :
+                        </div>
+                        <div class="col-sm-8 form-group">
+                            @Html.TextAreaFor(model => (model.Answer), 5, 60, null)
+                        </div>
+                    </div>
+                    <div class="row" style="text-align:center;">
+                        @Html.HiddenFor(model => (model.Id))
+                        <button style="margin-top: 20px;" type="submit" class="btn btn-lg btn-info">Submit</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

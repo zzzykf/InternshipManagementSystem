@@ -1,0 +1,58 @@
+﻿@model InternshipManagementSystem.Models.ReportModel
+
+
+<h2><bold>Internship Release Report</bold></h2>
+<h4>Internship Student Details</h4>
+
+<table class="table" style="font-weight:bold; text-align:left; font-size:larger;">
+    <tr>
+        <td style="width:200px">Student Name :</td>
+        <td>@Html.Raw(Model.Student_Name)</td>
+    </tr>
+    <tr>
+        <td>Company : </td>
+        <td>@Html.Raw(Model.Company_Name) </td>
+    </tr>
+    <tr>
+        <td>Matric No. : </td>
+        <td>@Html.Raw(Model.Matric_Id)</td>
+    </tr>
+    <tr>
+        <td>State : </td>
+        <td>@Html.Raw(Model.State)</td>
+    </tr>
+    <tr>
+        <td>Internship Period :</td>
+        <td>@Html.Raw(Model.Internship_Start) ~ @Html.Raw(Model.Internship_End)</td>
+    </tr>
+    <tr>
+        @{
+            if (Model.Status == "Incompleted")
+            {
+                <td>Status : </td>
+                <td style="color:red;">@Html.Raw(Model.Status)</td>
+            }
+            else
+            {
+                <td>Status : </td>
+                <td style="color:green;">@Html.Raw(Model.Status)</td>
+            }
+        }
+    </tr>
+
+</table>
+<div>
+    @{
+        if (Model.Status == "Incompleted")
+        {
+            <button id="my-button" onclick="location.href='@Url.Action("SubmitReportStatus", "GeneralActivityModule")'">Submit</button>
+            <input type="button" value="Home" onclick="location.href='@Url.Action("Index", "Home")'" />
+        }
+        else
+        {
+            <button onclick="window.print()">Print</button> 
+            <span>&nbsp; &nbsp; </span>
+            <input type="button" value="Home" onclick="location.href='@Url.Action("Index", "Home")'" />
+        }
+    }
+</div>

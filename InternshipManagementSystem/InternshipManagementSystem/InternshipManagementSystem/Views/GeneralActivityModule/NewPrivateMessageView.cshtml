@@ -1,0 +1,25 @@
+﻿@model List<InternshipManagementSystem.Models.PrivateMessageModel>
+<h2>Private Message</h2>
+<h3>Recent Message</h3>
+
+<table>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="width:auto">
+                @{
+                    <button onclick="location.href='@Url.Action("PrivateMessageView", "GeneralActivityModule", new {@user = item.Sender })'" style="background-color: #F7DC6F; display:inline-block; font-size:medium; width:1024px; text-decoration:solid; text-align:left; border-radius:12px;">
+                        @Html.Raw(item.Sender)
+                        <br />
+                        @Html.Raw(item.Message)
+                    </button>
+                }
+            </td>
+           
+        </tr>
+        <tr>
+            <td><br /></td>
+        </tr>
+    }
+</table>

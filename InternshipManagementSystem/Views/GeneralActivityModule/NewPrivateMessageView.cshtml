@@ -1,0 +1,40 @@
+﻿@model List<InternshipManagementSystem.Models.PrivateMessageModel>
+<h2>Private Message</h2>
+<div style="width:200px; display:inline-block;">
+    <h3>Recent Message</h3>
+</div>
+<div style="width:380px; display:inline-flex;">
+    <button type="button" id="my-button" onclick="location.href='@Url.Action("PrivateMessageFormView", "GeneralActivityModule")' " style="background-color:cornflowerblue; display:inline-block; margin-top:10px; box-shadow:none; border:none; font-size:large; width:160px; text-decoration:solid; border-radius:4px; margin-left:180px;"><img src="~/Image/plus.png" style="width:20px;height:20px;float:left; margin-top:3px;" /> New Message </button>
+</div>
+<br />
+<br />
+
+
+
+<div id="scrolldiv" style="width:50%; height:350px; overflow-x:hidden; overflow:auto;">
+
+    <table>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="width:auto;">
+                    @{
+                        <button onclick="location.href='@Url.Action("PrivateMessageView", "GeneralActivityModule", new {@user = item.Sender, @fullname = item.FullName })'" style="background-color:#DCDCDC; box-shadow:none; border:none; font-size:medium; width:550px; text-decoration:solid; text-align:left; border-radius:4px;">
+                            <b>@Html.Raw(item.FullName)</b>
+                            <br />
+
+                            @Html.Raw(item.Message)
+
+                        </button>
+                    }
+                </td>
+
+            </tr>
+            <tr>
+                <td><p></p></td>
+            </tr>
+                        }
+
+    </table>
+</div>

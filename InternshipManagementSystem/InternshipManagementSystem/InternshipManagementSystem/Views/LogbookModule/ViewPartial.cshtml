@@ -1,0 +1,53 @@
+﻿@using InternshipManagementSystem.Models
+@model dynamic
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Styles.Render("~/Content/viewlogbook.css")
+
+<div class="container">
+    <div class="col-lg-12 well">
+        <div class="row">
+            <h3 style="margin-bottom:20px; text-align:center;"><b>Internship Student Details</b></h3>
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-3 form-group"></div>
+                    <div class="col-sm-3 form-group">
+                        Matric No. : @Model.User.MatricID
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        Company : @Model.User.CompanyName
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 form-group"></div>
+                    <div class="col-sm-3 form-group">
+                        Full Name : @Model.User.FullName
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        State : @Model.User.State
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <table align="center">
+        <tr>
+            <th>Day</th>
+            <th>Title</th>
+            <th>Submission Date</th>
+            <th>Action</th>
+        </tr>
+        @foreach (LogbookModel logbook in Model.Logbooks)
+        {
+            <tr>
+                <td>@logbook.Datetime.DayOfWeek.ToString()</td>
+                <td>@logbook.Title</td>
+                <td>@logbook.Datetime.ToShortDateString()</td>
+                <td>@Html.ActionLink("View", "ViewLogbookStd", "LogbookModule", new { logbook.Id }, new { })</td>
+            </tr>
+        }
+    </table>
+</div>

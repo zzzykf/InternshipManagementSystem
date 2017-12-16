@@ -1,0 +1,45 @@
+﻿@model List<InternshipManagementSystem.Models.FAQModel>
+
+@{
+    ViewBag.Title = "FAQView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FAQView</h2>
+
+<p>
+    @if (ViewBag.Role == "Faculty Coordinator")
+    {
+        @Html.ActionLink("Create New", "FAQFormView")
+    }
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <div style="display: inline-block; font-size:medium; text-decoration:solid;">
+                Q:   @Html.Raw(item.Question)
+            </div>
+            <br />
+            <div>A:   @Html.Raw(item.Answer)</div>
+            <div style="float: right;">
+                @if (ViewBag.Role == "Faculty Coordinator")
+                {
+                    @Html.ActionLink("Update", "FAQFormView", "GeneralActivityModule"
+                    , new { @id = item.Id }, new { })
+                    @Html.ActionLink("Delete", "DeleteFAQ", "GeneralActivityModule"
+                    , new { @id = item.Id }, new { onclick = "return confirm ('Are you sure you wish to delete this FAQ?');" })
+                }
+
+            </div>
+        </td>
+    </tr>
+    <tr style="border: hidden; height: 10px;"></tr>
+}
+
+</table>

@@ -1,0 +1,66 @@
+﻿@model InternshipManagementSystem.Models.AnnouncementModel
+
+@{
+    ViewBag.Title = "AnnouncementFormView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    function validateCategory() {
+        var category = document.getElementById("category");
+        var text = category.options[category.selectedIndex].value;
+            if (text == "") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+</script>
+<h2>AnnouncementFormView</h2>
+<div class="container">
+    <div class="col-lg-12 well">
+        <div class="row">
+            @{ 
+                var listItems = new List<SelectListItem>()
+                {
+                    new SelectListItem {Text = "Important", Value = "Important"},
+                    new SelectListItem {Text = "Normal", Value = "Normal"}
+                };
+            }
+            @using (Html.BeginForm("AnnouncementFormView", "GeneralActivityModule", FormMethod.Post, new { onsubmit = "return validateCategory()" }))
+            {
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Title : 
+                        </div>
+                        <div class="col-sm-8 form-group">
+                            @Html.TextBoxFor(model => (model.Title), new { style = "width: 100%;" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Category :
+                        </div>
+                        <div class="col-sm-8 form-group">
+                            @Html.DropDownListFor(model => (model.Category), listItems,
+                                      "Select Category", new { @id = "category"})
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Description : 
+                        </div>
+                        <div class="col-sm-8">
+                            @Html.TextAreaFor(model => (model.Content), 5, 60, null)
+                        </div>
+                    </div>
+                    <div class="row" style="text-align:center;">
+                        @Html.HiddenFor(model => (model.Id))
+                        <button style="margin-top: 20px;" type="submit" class="btn btn-lg btn-info">Submit</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

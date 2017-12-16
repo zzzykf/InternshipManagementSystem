@@ -1,0 +1,47 @@
+﻿@model List<InternshipManagementSystem.Models.AnnouncementModel>
+
+@{
+    ViewBag.Title = "AnnouncementView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AnnouncementView</h2>
+
+<p>
+    @if (ViewBag.Role == "Faculty Coordinator")
+    {
+        @Html.ActionLink("Create New", "AnnouncementFormView")
+    }
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr style="background-color: #F7DC6F;">
+        <td>
+            <div style="display: inline-block; font-size:medium; text-decoration:solid;">
+                @Html.Label(item.Title)
+            </div>
+            <div style="display:inline-block; float: right;">
+                @Html.Label(Convert.ToString(item.Datetime))
+            </div>
+            <br />
+            <div>@Html.Raw(item.Content)</div>
+            <div style="float: right;">
+            @if (ViewBag.Role == "Faculty Coordinator")
+            {
+                    @Html.ActionLink("Update", "AnnouncementFormView",
+                     "GeneralActivityModule", new { item.Id }, new { })
+                    @Html.ActionLink("Delete", "DeleteAnnouncement",
+                     "GeneralActivityModule", new { @id = item.Id },
+                     new { onclick = "return confirm ('Are you sure you wish to delete this announcement?');" })
+            }
+            </div>
+        </td>
+    </tr>
+    <tr style="border: hidden; height: 10px;"></tr>
+}
+
+</table>

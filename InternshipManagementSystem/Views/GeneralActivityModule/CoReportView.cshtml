@@ -1,0 +1,38 @@
+﻿@model List<InternshipManagementSystem.Models.ReportModel>
+
+
+<h2>Student Report</h2>
+
+    <table class="table" style="text-align:center; width:100%">
+        <tr style="font-weight:bold; font-size:large; background-color:seashell;">
+            <td>Student Name</td>
+            <td>Evaluation Mark</td>
+            <td>Status</td>
+            <td>Faculty Supervisor</td>
+            <td>Industrial Supervisor</td>
+        </tr>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@Html.Raw(item.Student_Name)</td>
+                    <td>@Html.Raw(item.Evaluation_Mark)</td>
+                    @{ 
+                        if (item.Status == "Incompleted")
+                        {
+                            <td style="color:red">@Html.Raw(item.Status)</td>
+                        }
+                        else
+                        {
+                            <td style="color:green">@Html.Raw(item.Status)</td>
+                        }
+                    }
+ 
+                    <td>@Html.Raw(item.Faculty_Supervisor_Name)</td>
+                    <td>@Html.Raw(item.Industrial_Supervisor_Name)</td>
+                </tr>
+            }
+        
+
+  </table>
+

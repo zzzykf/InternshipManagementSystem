@@ -1,0 +1,42 @@
+﻿@model InternshipManagementSystem.Models.UserModel
+
+<div class="container">
+    <div class="col-lg-12 well">
+        <div class="row">
+            @using (Html.BeginForm("SetPresentationSchedule", "PresentationModule", FormMethod.Post))
+            {
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Calendar :
+                        </div>
+                        <div class="col-sm-8 form-group">
+                            @Html.TextBoxFor(model => model.PresentationDate,
+           new { required = "required", @type = "date", @Value = Model.PresentationDate})
+                            @Html.HiddenFor(model => (model.Username))
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Time :
+                        </div>
+                        <div class="col-sm-8 form-group">
+                            @Html.TextBoxFor(model => model.PresentationTime)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group" style="text-align:right;">
+                            Venue :
+                        </div>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(model => (model.PresentationVenue))
+                        </div>
+                    </div>
+                    <div class="row" style="text-align:center;">
+                        <button style="margin-top: 20px;" type="submit" class="btn btn-lg btn-info">Submit</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

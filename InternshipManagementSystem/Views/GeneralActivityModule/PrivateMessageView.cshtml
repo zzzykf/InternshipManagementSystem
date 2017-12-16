@@ -1,0 +1,77 @@
+﻿@model InternshipManagementSystem.Models.MyViewModel
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+
+<h2>Private Message</h2>
+<h3>@ViewBag.FullName</h3>
+<div id="scrolldiv" style="width:50%; height:350px; overflow-x:hidden; overflow:auto;">
+
+    <table style="width:100%;">
+
+        @foreach (var item in Model.PrivateMessageList)
+        {
+            <tr>
+                <td style="width:95%">
+                    @{
+                        if (ViewBag.TargetUser == item.Sender)
+                        {
+                            <div style="display:inline-block; padding-left:10px;">
+                                <div style="background-color:#d2d9dd; width:auto; padding-right:10px; padding-left:10px; border-top-left-radius:8px; border-top-right-radius:8px;">
+                                    @Html.Label(Convert.ToString(item.Datetime))
+                                </div>
+                                <div style="background-color:#d2d9dd; width:auto; padding-right:10px; padding-left:10px; border-bottom-left-radius:8px; border-bottom-right-radius:8px;">
+                                    <div>@Html.Raw(item.Message)</div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="text-align: right; padding-right:5px; display:inline-block; float:right;">
+                                <div style="background-color:#72b1ff; width:auto; padding-right:10px; padding-left:10px; border-top-left-radius:8px; border-top-right-radius:8px;">
+                                    @Html.Label(Convert.ToString(item.Datetime))<span style="font-weight:bold;"> (You)</span>
+                                </div>
+                                <div style="background-color:#72b1ff; width:auto; padding-right:10px; padding-left:10px; border-bottom-left-radius:8px; border-bottom-right-radius:8px;">
+                                    <div>
+                                        @Html.Raw(item.Message)
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </td>
+
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+                        }
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+    <br />
+</div>
+<script>
+    $("#scrolldiv").animate({ scrollTop: $("#scrolldiv")[0].scrollHeight }, 0);
+
+</script>
+
+<section style="display:flex; width:50%;">
+    @using (Html.BeginForm("PrivateMessageView", "GeneralActivityModule", FormMethod.Post, new { style = "width: 100%;" }))
+    {
+
+        <div style="width:100%; height:100px;">
+            @Html.TextAreaFor(m => m.PrivateMessage.Message, new { placeholder = "Reply message...", style = "border:solid; border-width:1px; border-color:darkgrey; max-width: 100%", @cols = 90, @rows = 4 })
+            @Html.HiddenFor(m => m.PrivateMessage.Receiver)
+            @Html.HiddenFor(m => m.PrivateMessage.Sender)
+        </div>
+        <br />
+        <div style="width:100px; overflow:hidden; display:inline-block;">
+            <button type="submit" id="my-button" onclick="location.href='@Url.Action("PrivateMessageView", "GeneralActivityModule")' " style="background-color:lightgrey; box-shadow:none; border:none; font-size:medium; width:auto; text-decoration:solid; border-radius:4px;">Send &nbsp;<img src="~/Image/ic_send_black_48dp.png" style="height:20px; width:20px; padding-bottom:3px;" /></button>
+        </div>
+    }
+
+</section>

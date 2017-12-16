@@ -1,0 +1,75 @@
+﻿@model InternshipManagementSystem.Models.UserModel
+@if (Model.Accepted == "Null")
+{
+    <div>No Presentation Schedule Yet!</div>
+}
+else
+{
+    <h2>Presentation Schedule</h2>
+    <div class="container">
+        <div class="col-lg-12 well">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-6 form-group" style="text-align:right;">
+                            Calendar :
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            @Html.Label(Model.PresentationDate)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group" style="text-align:right;">
+                            Time :
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            @Html.Label(Model.PresentationTime)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group" style="text-align:right;">
+                            Venue :
+                        </div>
+                        <div class="col-sm-6">
+                            @Html.Label(Model.PresentationVenue)
+                            <input type="hidden" value="@ViewBag.Username" id="user" />
+                        </div>
+                    </div>
+                    @if (Model.Accepted == "Waiting for response")
+                    {
+                        <div class="row" style="text-align:center;">
+                            <div class="col-sm-6 form-group" style="text-align:right;">
+                                <input type="button" onclick="Accept()" value="Accept" />
+                            </div>
+                            <div class="col-sm-6 form-group" style="text-align:left;">
+                                <input type="button" onclick="Reject()" value="Reject" />
+                            </div>
+                        </div>
+
+                    }
+                    else if (Model.Accepted == "Rejected")
+                    {
+                        <div class="row" style="text-align:center; color:red;">REJECTED</div>
+                    }
+                    else if (Model.Accepted == "Accepted")
+                    {
+                        <div class="row" style="text-align:center; color:green;">ACCEPTED</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function Accept() {
+            var user = document.getElementById('user').value;
+            window.location.href = '/PresentationModule/UpdateScheduleStatus?username=' + user + '&status=accept';
+        }
+        function Reject() {
+            var user = document.getElementById('user').value;
+            window.location.href = '/PresentationModule/UpdateScheduleStatus?username=' + user + '&status=reject';
+        }
+    </script>
+
+
+}

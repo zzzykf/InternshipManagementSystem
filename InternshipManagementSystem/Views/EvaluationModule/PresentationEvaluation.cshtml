@@ -1,0 +1,91 @@
+﻿@using InternshipManagementSystem.Models
+@model EvaluationModel
+@using (Html.BeginForm("EvaluatePresentation", "EvaluationModule", FormMethod.Post))
+{
+    <h2>Presentation Evaluation</h2>
+    <div style="font-size: 24px;"><label>Matric No. : &nbsp;</label>@Html.LabelFor(m => m.User.MatricID, Model.User.MatricID, null)</div>
+    <div style="font-size: 24px;"><label>Name : &nbsp;</label>@Html.LabelFor(m => m.User.FullName, Model.User.FullName, null)</div>
+    @Html.HiddenFor(m => m.User.Username)
+    <label>Instruction:</label>
+    <label>Supervisor is required to select (/) any related box by uising the following guideline:</label>
+    <div>1 = Unsatisfactory<br />2 = Less Satisfactory<br />3 = Satisfactory<br />4 = Good<br />5 = Very Good</div>
+
+    <div class="col-lg-12 well">
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Format: </label>
+                <br />Includes introduction, training scope, training contents, recommendations and conclusion.
+            </div>
+            <div class="col-sm-6">
+                <br />@Html.TextBoxFor(m => m.OptionA, new { @style = "width:40px;", @type = "number", @min = "1", @max = "5" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Appearance: </label>
+                <br />Student appears in a formal dress, discipline and professional.
+            </div>
+            <div class="col-sm-6">
+                <br />@Html.TextBoxFor(m => m.OptionB, new { @style = "width:40px;", @type = "number", @min = "1", @max = "5" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Clarity: </label>
+                <br />Student uses simpole, clear and proper language.
+            </div>
+            <div class="col-sm-6">
+                <br />@Html.TextBoxFor(m => m.OptionC, new { @style = "width:40px;", @type = "number", @min = "1", @max = "5" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Time Management: </label>
+                <br />Student delivers his/her presentation in a timely manner.
+            </div>
+            <div class="col-sm-6">
+                <br />@Html.TextBoxFor(m => m.OptionC, new { @style = "width:40px;", @type = "number", @min = "1", @max = "5" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <br />Comment :
+            </div>
+            <div class="col-sm-6">
+                <br />@Html.TextAreaFor(m => m.Comment, new { @type = "number", @min = "1", @max = "5" })
+            </div>
+        </div>
+        @{
+            Model.EvaluatedBy = @ViewBag.Role;
+        }
+        @Html.HiddenFor(m => m.EvaluatedBy)
+        @if (Model.OptionA > 0)
+        {
+            <div class="row" style="padding-top:10px;">
+                <div class="col-sm12" style="text-align:center;">
+                    <label style="color:green;">EVALUATED!</label>
+                </div>
+            </div>
+
+        }
+        else
+        {
+            if (ViewBag.Role == "Faculty Coordinator")
+            {
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-sm12" style="text-align:center;">
+                        <label style="color:green;">Waiting for Evaluation!</label>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-sm12" style="text-align:center;">
+                        <input type="submit" value="Evaluate" />
+                    </div>
+                </div>
+            }
+        }
+    </div>
+            }

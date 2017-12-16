@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+    </head>
+    <body>
+    
+        <div class="navbar navbar-inverse navbar-fixed-top" style="white-space: nowrap">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @* @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Logbook", "LogbookStd", "LogbookModule")</li>
+                    <li>@Html.ActionLink("Evaluation", "EvaluationSvView", "EvaluationModule")</li>
+                    <li>@Html.ActionLink("Assign Supervisor", "AssignSupervisorView", "FacultyCoordinatorModule")</li>
+                    <li>@Html.ActionLink("Presentation Schedule", "PresentationScheduleCoView", "PresentationModule")</li>
+                    @*<li>@Html.ActionLink("General Activity", "Contact", "Home")</li>*@
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" role="button" arua-haspopup="true" aria-expanded="true" type="button" data-toggle="dropdown">
+                            General Activity
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu .pull-right">
+                            <li>@Html.ActionLink("Internship Report", "Report", "GeneralActivityModule")</li>
+                            <li>@Html.ActionLink("Announcement", "AnnouncementView", "GeneralActivityModule")</li>
+                            <li>@Html.ActionLink("Private Message", "NewPrivateMessageView", "GeneralActivityModule")</li>
+                            <li>@Html.ActionLink("FAQ", "FAQView", "GeneralActivityModule")</li>
+                        </ul>
+                        
+                    </li>
+                </ul>
+                <div style="height:100%;padding-top:15px;">@Html.ActionLink("Logout","Logout","UserModule")</div>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

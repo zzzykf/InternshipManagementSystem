@@ -1,0 +1,79 @@
+﻿@using InternshipManagementSystem.Models
+@model dynamic
+
+@{
+    ViewBag.Title = "LogBookSv";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Scripts.Render("~/bundles/modernizr")
+@Styles.Render("~/Content/viewlogbook.css")
+@Scripts.Render("//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+@Scripts.Render("/Scripts/jquery.unobtrusive-ajax.js")
+
+<h2>LogBookSv</h2>
+<div style="width: 100%; text-align:center; display:block;">
+    Keyword <input type="text" id="txtSearch"/><input type="button" id="btnSearch" value="Search" onclick="StartSearch();"/>
+</div>
+
+<script>
+    function StartSearch() {
+        var Text = document.getElementById('txtSearch').value;
+        window.location.href= '/LogbookModule/LogbookSv/' + Text;
+    }
+</script>
+<table>
+    <tr>
+        <th>Matric No</th>
+        <th>Full Name</th>
+        <th>Company</th>
+        <th>State</th>
+        <th>Option</th>
+    </tr>
+    @if (ViewBag.Found == false)
+    {
+        foreach (UserModel user in Model)
+        {
+            <tr>
+                <td>@user.MatricID</td>
+                <td>@user.FullName</td>
+                <td>@user.CompanyName</td>
+                <td>@user.State</td>
+                <td>@Ajax.ActionLink("View","ViewPartial", new { user.Username }
+               , new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   InsertionMode = InsertionMode.Replace,
+                   UpdateTargetId = "partial",
+                   OnComplete = ""
+               })</td>
+            </tr>
+        }
+    }
+    else
+    {
+        foreach (UserModel user in Model.Users)
+        {
+            <tr>
+                <td>@user.MatricID</td>
+                <td>@user.FullName</td>
+                <td>@user.CompanyName</td>
+                <td>@user.State</td>
+                <td>
+                    @Ajax.ActionLink("View", "ViewPartial", new { user.Username }
+                   , new AjaxOptions
+                   {
+                       HttpMethod = "GET",
+                       InsertionMode = InsertionMode.Replace,
+                       UpdateTargetId = "partial",
+                       OnComplete = ""
+                   })
+                </td>
+            </tr>
+        }
+    }
+</table>
+<br />
+<br />
+<div id="partial">
+</div>
